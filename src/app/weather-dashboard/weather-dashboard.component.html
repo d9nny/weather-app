@@ -1,0 +1,50 @@
+<section class="section container"
+         *ngIf="weather">
+    <div class="row">
+        <div class="col-12 card-container"
+             id="title-container">
+            <div class="card">
+                <h1 class="location gradient-text">{{ weather.title }}</h1>
+                <h5 class="date">{{ weather.time | date:'dd MMMM yyyy' }}</h5>
+                <app-search-box (searchQuery)="getWeather($event)"></app-search-box>
+                <small class="error danger-text"
+                       *ngIf="locationError">Sorry, we're unable to get weather for this location.</small>
+                <small class="error danger-text"
+                       *ngIf="error">Sorry, we've encountered a problem. Please try again later.</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4 card-container stat-container">
+            <div class="card">
+                <h5 class="title">Current Temp</h5>
+                <p class="gradient-text">{{ weather.consolidated_weather[0].the_temp.toFixed(3) }}</p>
+            </div>
+        </div>
+        <div class="col-4 card-container stat-container">
+            <div class="card">
+                <h5 class="title">Current Weather</h5>
+                <p class="gradient-text">{{ weather.consolidated_weather[0].weather_state_name }}</p>
+            </div>
+        </div>
+        <div class="col-4 card-container stat-container">
+            <div class="card">
+                <h5 class="title">Sundown</h5>
+                <p class="gradient-text">
+                    <app-countdown-timer [countDownDate]="weather.sun_set"></app-countdown-timer>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 card-container"
+             id="graph-container">
+            <div class="card">
+                <h5 class="title">Six Day Forecast</h5>
+                <app-chart [data]="weather.chart"></app-chart>
+            </div>
+        </div>
+    </div>
+</section>

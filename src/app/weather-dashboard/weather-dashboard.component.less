@@ -1,0 +1,58 @@
+@import '../../styles/variables.less';
+
+@space-between: .75rem;
+
+.section {
+    padding-top: 4 * @space-between;
+    padding-bottom: 4 * @space-between;
+
+    .card-container {
+        padding-top: @space-between;
+        padding-bottom: @space-between;
+
+        .card {
+            border: none;
+            box-shadow: @box-shadow-2;
+            border-radius: @border-radius;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            background-color: #fff;
+
+            /deep/ p {
+                margin-bottom: 0;
+                font-size: 2rem;
+                font-weight: 600;
+            }
+
+            app-search-box {
+                width: 600px;
+                margin: auto;
+                margin-top: 2rem;
+                display: block;
+
+                @media (max-width: 600px) {
+                    width: 100%;
+                }
+            }
+        }
+
+    }
+
+    #title-container {
+        .card {
+            padding: 3.5rem 1.5rem;
+
+            .location {
+                font-size: 3rem;
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+            }
+        }
+    }
+
+    #graph-container {
+        .title {
+            margin-bottom: 2rem;
+        }
+    }
+}

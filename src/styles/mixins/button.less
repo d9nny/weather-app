@@ -1,0 +1,155 @@
+@import '../variables.less';
+
+.btn,
+.btn:hover,
+.btn:focus,
+.btn:active {
+    box-shadow: none;
+    outline: none !important;
+    text-decoration: none;
+}
+
+.btn {
+    font-family: @body-font;
+    font-size: @font-size-base;
+    cursor: pointer;
+
+    i {
+        padding-right: .25rem;
+    }
+}
+
+.btn-xs {
+    font-size: @font-size-xs;
+    padding: .25rem .5rem;
+}
+
+.btn-sm {
+    font-size: @font-size-sm;
+}
+
+.icon-space {
+    margin-right: .25rem;
+}
+
+.input-group-button {
+    border: none;
+    box-shadow: none;
+
+    &.left {
+        top-left-radius: 0;
+        bottom-left-radius: 0;
+        top-right-radius: @border-radius;
+        bottom-right-radius: @border-radius;
+    }
+    &.right {
+        top-right-radius: 0;
+        bottom-right-radius: 0;
+        top-left-radius: @border-radius;
+        bottom-left-radius: @border-radius;
+    }
+    &.center {
+        top-left-radius: 0;
+        bottom-left-radius: 0;
+        top-right-radius: 0;
+        bottom-right-radius: 0;
+    }
+}
+
+.rounded {
+    radius: 50%;
+}
+
+.full-width {
+    width: 100%;
+    display: block;
+}
+
+// NORMAL BUTTONS
+
+.btn(@color, @text-color: #fff) {
+    color: @text-color;
+    background-color: @color;
+    box-shadow: 0 1px 1px lighten(@color, 10%);
+    border: none;
+
+    &.center-shadow {
+        box-shadow: 0 0 1px lighten(@color, 10%);
+    }
+
+    &.disabled {
+        background-color: @grey-1;
+        color: @text-color;
+        box-shadow: 0 1px 1px lighten(@grey-1, 10%);
+    }
+    &:hover:not(.disabled) {
+        color: @text-color;
+        background-color: saturate(@color, 22%);
+        box-shadow: 0 1px 4px darken(@color, 2%);
+
+        &.center-shadow {
+            box-shadow: 0 0 5px darken(@color, 2%);
+        }
+    }
+    &:hover {
+        &.disabled {
+            cursor: not-allowed;
+        }
+    }
+}
+
+.btn-primary {
+    .btn(@brand-primary-1);
+}
+
+.btn-secondary {
+    .btn(@brand-secondary-1);
+}
+
+.btn-warning {
+    .btn(@brand-warning-1);
+}
+
+.btn-danger {
+    .btn(@brand-danger-1);
+}
+
+// OUTLINE BUTTONS
+
+.btn-outline(@color, @text-color: @color) {
+    color: @text-color;
+    border: 1px solid @color;
+    box-shadow: none;
+    background-color: transparent;
+
+    &:hover {
+        color: darken(@text-color, 5%);
+        border: 1px solid darken(@color, 5%);
+        box-shadow: 0 0px 5px @color;
+        background-color: transparent;
+    }
+}
+
+.outline-grey-1 {
+    .btn-outline(@grey-1, lighten(@grey-2, 7%));
+}
+
+.outline-default {
+    .btn-outline(@text-color);
+}
+
+.outline-primary {
+    .btn-outline(@brand-primary-1);
+}
+
+.outline-secondary {
+    .btn-outline(@brand-secondary-1);
+}
+
+.outline-warning {
+    .btn-outline(@brand-warning-1);
+}
+
+.outline-danger {
+    .btn-outline(@brand-danger-1);
+}

@@ -1,0 +1,165 @@
+@import './variables.less';
+@import './mixins/button.less';
+
+body {
+    color: @text-color;
+    font-family: @body-font;
+    line-height: 1.5;
+    background-color: @off-white-2;
+    font-weight: @base-font-weight;
+}
+
+h1, h2, h3 {
+    font-family: @body-font;
+    color: @heading-color;
+    font-weight: 500;
+}
+
+h4, h5, h6, p, input, textarea {
+    font-family: @body-font;
+    font-weight: @base-font-weight;
+    font-weight: 400;
+}
+
+h4, h5, h6 {
+    color: @heading-color;
+    margin-bottom: .5rem;
+}
+
+h5 {
+    font-size: 1.1rem;
+}
+
+p {
+    color: @text-color;
+    font-size: 1.1rem;
+}
+
+@media (max-width: 800px) {
+    h1 {
+        font-size: 2.25rem;
+    }
+
+    h2 {
+        font-size: 1.75rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+    }
+
+    h4 {
+        font-size: 1.25rem;
+    }
+
+    h5 {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    h3 {
+        font-size: 1rem;
+    }
+
+    h4 {
+        font-size: .9rem;
+    }
+}
+
+b, strong {
+    font-weight: 500;
+}
+
+a {
+    color: @brand-primary-1;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        text-decoration: underline;
+         color: @brand-secondary-1;
+    }
+}
+
+button.btn {
+    &:focus {
+        outline: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+}
+
+:focus {
+    outline: none;
+}
+
+input {
+    &::placeholder {
+        color: @light-text-color;
+        font-family: @body-font;
+        letter-spacing: .5px;
+    }
+}
+
+small {
+    font-weight: @base-font-weight;
+}
+
+.bg-image {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: block;
+}
+
+.gradient-text {
+    background: #FC466B;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, @brand-primary-1, @brand-secondary-1);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, @brand-primary-1, @brand-secondary-1); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+.justify-content-center {
+    margin: auto;
+}
+
+.text-left {
+    text-align: left;
+}
+.text-center {
+    text-align: center;
+}
+.text-right {
+    text-align: right;
+}
+
+.danger-text {
+    color: @brand-danger-1;
+}
+
+.hidden-md-down {
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+.hidden-md-up {
+    @media (min-width: 769px) {
+        display: none;
+    }
+}
