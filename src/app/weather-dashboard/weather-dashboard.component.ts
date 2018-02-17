@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { WeatherService } from '../weather-service/weather.service';
+
+import { WeatherService } from '../shared/services/weather-service/weather.service';
+
+import { Weather, WeatherDay } from '../shared/interfaces/weather';
 
 @Component({
     selector: 'app-weather-dashboard',
@@ -8,22 +11,19 @@ import { WeatherService } from '../weather-service/weather.service';
 })
 export class WeatherDashboardComponent implements OnInit {
 
-    public weather: any;
-    public theme: string;
+    public weather: Weather;
+    public locations: string[];
     public error: boolean;
     public locationError: boolean;
 
     constructor(private weatherService: WeatherService) {}
 
-    getWeather(location) {
+    getWeather(location): void {
         this.error = this.locationError = false;
         this.weatherService.getWeather(location)
             .subscribe(
-                res => {
-                    console.log(res);
-                    this.weather = res;
-                },
-                err => {
+                (res: Weather) => this.weather = res,
+                (err) => {
                     err === 'unknown-location' ? this.locationError = true :
                                                  this.error = true;
                 });
@@ -31,5 +31,6 @@ export class WeatherDashboardComponent implements OnInit {
 
     ngOnInit() {
         this.getWeather('london');
+        this.locations = this.weatherService.getLocations();
     }
 }

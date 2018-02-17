@@ -1,11 +1,13 @@
-import { Chart } from './chart';
+import { ChartObj } from './chart-obj';
 
 export interface Weather {
     consolidated_weather: WeatherDay[];
     sun_set: Date;
     the_temp: number;
     weather_state_name: string;
-    chart: Chart;
+    chart: ChartObj;
+    next_sun_rise: Date;
+    after_sun_set: boolean;
 }
 
 export interface WeatherDay {

@@ -1,0 +1,23 @@
+@import '../../../../styles/variables.less';
+
+.form-control {
+    letter-spacing: .5px;
+    border-color: @grey-1;
+}
+
+
+/deep/ .dropdown-menu {
+    right: 0;
+    position: absolute;
+    margin-left: auto;
+
+    .dropdown-item {
+        cursor: pointer;
+        color: @text-color;
+        font-family: @body-font;
+
+        &.active {
+            background-color: @off-white-2;
+        }
+    }
+}

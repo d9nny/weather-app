@@ -7,8 +7,8 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/switchMap';
 
-import { Weather, WeatherDay } from '../interfaces/weather';
-import { Chart } from '../interfaces/chart';
+import { Weather, WeatherDay } from '../../interfaces/weather';
+import { ChartObj } from '../../interfaces/chart-obj';
 
 @Injectable()
 export class WeatherService {
@@ -29,12 +29,24 @@ export class WeatherService {
     }
 
     processWeather(weather: any): Weather {
+        weather.next_sun_rise = this.getNextSunRise(weather.sun_rise);
+        weather.after_sun_set = this.afterSunSet(weather.sun_set);
         weather.consolidated_weather = this.setupWeatherDays(weather.consolidated_weather);
         weather.consolidated_weather = weather.consolidated_weather.sort((a, b) => {
             return a.applicable_date - b.applicable_date;
         });
         weather.chart = this.createChartData(weather.consolidated_weather);
         return weather;
+    }
+
+    getNextSunRise(sunrise: Date): Date {
+        const sunriseTomorrow = new Date(sunrise);
+        sunriseTomorrow.setHours(sunriseTomorrow.getHours() + 24);
+        return sunriseTomorrow;
+    }
+
+    afterSunSet(sunset: Date): Boolean {
+        return new Date().getTime() > new Date(sunset).getTime();
     }
 
     setupWeatherDays(weatherDays: WeatherDay[]): WeatherDay[] {
@@ -51,7 +63,7 @@ export class WeatherService {
         return days[weather.applicable_date.getDay()];
     }
 
-    createChartData(weatherDays: WeatherDay[]): Chart {
+    createChartData(weatherDays: WeatherDay[]): ChartObj {
         const data = {
             categories: [],
             series: [
@@ -67,5 +79,16 @@ export class WeatherService {
             data.series[2].data.push(weatherDay.min_temp);
         });
         return data;
+    }
+
+    getLocations() {
+        return ['London', 'Bristol', 'Exeter', 'Tiverton', 'Liverpool', 'Reading', 'Birmingham', 'Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
+        'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
+        'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine',
+        'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana',
+        'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
+        'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island',
+        'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands', 'Virginia',
+        'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
     }
 }

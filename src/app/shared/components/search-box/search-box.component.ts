@@ -1,6 +1,7 @@
-import { Component, OnInit, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -14,11 +15,14 @@ import 'rxjs/add/operator/debounceTime';
             <input type="text"
                    [(ngModel)]="query"
                    class="form-control"
-                   (keyup.enter)="search()"
-                   placeholder="Search location..." autofocus>
+                   (keyup.enter)="submit()"
+                   [ngbTypeahead]="searchResults"
+                   (selectItem)="submit($event)"
+                   [placeholder]="placeholder" autofocus/>
+
             <span class="input-group-btn">
                 <button class="btn outline-grey-1"
-                        (click)="search()">Update</button>
+                        (click)="submit()">Update</button>
             </span>
         </div>
     `,
@@ -27,20 +31,24 @@ import 'rxjs/add/operator/debounceTime';
 export class SearchBoxComponent implements OnInit {
 
     public query = '';
-    private querySubject = new Subject<string>();
+    public searchResults: any;
+
+    @Input() searchList: string[];
+    @Input() placeholder: string;
 
     @Output() searchQuery = new EventEmitter<any>();
 
     constructor(private el: ElementRef) {
-        // Observable.fromEvent(this.el.nativeElement, 'keyup')
-        //     .map((e: any) => e.target.value)
-        //     .subscribe(query => {
-        //         this.query = query;
-        //         this.searchQuery.emit(this.query);
-        //     });
+        this.searchResults = (text$: Observable<string>) =>
+            text$
+              .debounceTime(200)
+              .distinctUntilChanged()
+              .map(query => query.length < 1 ? []
+                  : this.searchList.filter(v => v.toLowerCase().indexOf(query.toLowerCase()) > -1).slice(0, 10));
     }
 
-    search() {
+    submit(query?: { item: string }): void {
+        if (query) { this.query = query.item; }
         this.searchQuery.emit(this.query);
         this.query = '';
     }

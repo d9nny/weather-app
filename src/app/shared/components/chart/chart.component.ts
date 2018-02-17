@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Chart } from 'angular-highcharts';
 
+import { ChartObj } from '../../interfaces/chart-obj';
+
 @Component({
     selector: 'app-chart',
     template: `<div [chart]="chart"></div>`,
@@ -8,7 +10,7 @@ import { Chart } from 'angular-highcharts';
 })
 export class ChartComponent implements OnInit {
 
-    @Input() data: any;
+    @Input() data: ChartObj;
 
     private chart: Chart;
 
@@ -18,7 +20,7 @@ export class ChartComponent implements OnInit {
         this.chart = new Chart({
             chart: {
                 type: 'column',
-                backgroundColor:'rgba(255, 255, 255, 0.0)'
+                backgroundColor: 'rgba(255, 255, 255, 0.0)'
             },
             title: {
                 text: ''

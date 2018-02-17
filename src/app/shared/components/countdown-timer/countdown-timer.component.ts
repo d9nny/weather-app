@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
+import { Clock } from '../../interfaces/clock';
+
 @Component({
     selector: 'app-countdown-timer',
     template: `<span class="countdown-timer">{{ clock.hrs | number: '2.0' }}:` +
@@ -19,7 +21,7 @@ export class CountdownTimerComponent implements OnInit {
 
     constructor() {}
 
-    startTimer() {
+    startTimer(): void {
         const now = new Date().getTime(),
               futureTime = new Date(this.countDownDate).getTime();
 
@@ -32,21 +34,16 @@ export class CountdownTimerComponent implements OnInit {
                 this.clock.secs = Math.floor((this.clock.distance % (1000 * 60)) / 1000);
                 this.clock.distance -= 1000;
 
-                if (this.clock.distance < 0) { clearInterval(this.interval); }
+                if (this.clock.distance < 0) {
+                    clearInterval(this.interval);
+                    this.finished.emit(true);
+                }
             }, 1000);
         }
-        this.finished.emit(true);
     }
 
     ngOnInit() {
         this.startTimer();
     }
 
-}
-
-interface Clock {
-    hrs: number;
-    mins: number;
-    secs: number;
-    distance: number;
 }

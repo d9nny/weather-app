@@ -6,7 +6,9 @@
             <div class="card">
                 <h1 class="location gradient-text">{{ weather.title }}</h1>
                 <h5 class="date">{{ weather.time | date:'dd MMMM yyyy' }}</h5>
-                <app-search-box (searchQuery)="getWeather($event)"></app-search-box>
+                <app-search-box [searchList]="locations"
+                                [placeholder]="'Search location...'"
+                                (searchQuery)="getWeather($event)"></app-search-box>
                 <small class="error danger-text"
                        *ngIf="locationError">Sorry, we're unable to get weather for this location.</small>
                 <small class="error danger-text"
@@ -30,9 +32,10 @@
         </div>
         <div class="col-4 card-container stat-container">
             <div class="card">
-                <h5 class="title">Sundown</h5>
+                <h5 class="title">{{ weather.after_sun_set ? 'Sunrise' : 'Sundown' }}</h5>
                 <p class="gradient-text">
-                    <app-countdown-timer [countDownDate]="weather.sun_set"></app-countdown-timer>
+                    <app-countdown-timer (finished)="weather.after_sun_set = !weather.after_sun_set"
+                                         [countDownDate]="weather.after_sun_set ? weather.next_sun_rise : weather.sun_set "></app-countdown-timer>
                 </p>
             </div>
         </div>

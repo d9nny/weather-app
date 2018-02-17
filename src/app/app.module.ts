@@ -3,16 +3,15 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { ChartModule } from 'angular-highcharts';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { WeatherDashboardComponent } from './weather-dashboard/weather-dashboard.component';
-import { ChartComponent } from './components/chart/chart.component';
-import { CountdownTimerComponent } from './components/countdown-timer/countdown-timer.component';
-import { SearchBoxComponent } from './components/search-box/search-box.component';
+import { ChartComponent } from './shared/components/chart/chart.component';
+import { CountdownTimerComponent } from './shared/components/countdown-timer/countdown-timer.component';
+import { SearchBoxComponent } from './shared/components/search-box/search-box.component';
 
-import { WeatherService } from './weather-service/weather.service';
-
+import { WeatherService } from './shared/services/weather-service/weather.service';
 
 @NgModule({
     declarations: [
@@ -26,7 +25,8 @@ import { WeatherService } from './weather-service/weather.service';
         BrowserModule,
         FormsModule,
         HttpModule,
-        ChartModule
+        ChartModule,
+        NgbModule.forRoot()
     ],
     providers: [
         WeatherService

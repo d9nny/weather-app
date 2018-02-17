@@ -1,4 +1,4 @@
-export interface Chart {
+export interface ChartObj {
     categories: string[];
     series: DataPoint[];
 }
