@@ -18,22 +18,25 @@
     </div>
 
     <div class="row">
-        <div class="col-4 card-container stat-container">
+        <div class="col-4 card-container stat-container"
+             id="current-temp">
             <div class="card">
                 <h5 class="title">Current Temp</h5>
-                <p class="gradient-text">{{ weather.consolidated_weather[0].the_temp.toFixed(3) }}</p>
+                <p class="gradient-text value">{{ weather.consolidated_weather[0].the_temp.toFixed(3) }}</p>
             </div>
         </div>
-        <div class="col-4 card-container stat-container">
+        <div class="col-4 card-container stat-container"
+             id="current-weather">
             <div class="card">
                 <h5 class="title">Current Weather</h5>
-                <p class="gradient-text">{{ weather.consolidated_weather[0].weather_state_name }}</p>
+                <p class="gradient-text value">{{ weather.consolidated_weather[0].weather_state_name }}</p>
             </div>
         </div>
-        <div class="col-4 card-container stat-container">
+        <div class="col-4 card-container stat-container"
+             id="countdown">
             <div class="card">
                 <h5 class="title">{{ weather.after_sun_set ? 'Sunrise' : 'Sundown' }}</h5>
-                <p class="gradient-text">
+                <p class="gradient-text value">
                     <app-countdown-timer (finished)="weather.after_sun_set = !weather.after_sun_set"
                                          [countDownDate]="weather.after_sun_set ? weather.next_sun_rise : weather.sun_set "></app-countdown-timer>
                 </p>

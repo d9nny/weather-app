@@ -6,4 +6,5 @@ export interface ChartObj {
 export interface DataPoint {
     name: string;
     data: number[];
+    color: string;
 }

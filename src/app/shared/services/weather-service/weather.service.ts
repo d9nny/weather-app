@@ -49,7 +49,7 @@ export class WeatherService {
         return new Date().getTime() > new Date(sunset).getTime();
     }
 
-    setupWeatherDays(weatherDays: WeatherDay[]): WeatherDay[] {
+    setupWeatherDays(weatherDays: any[]): WeatherDay[] {
         weatherDays.forEach(weatherDay => {
             const date = `${ weatherDay.applicable_date }`.split('-').map(num => Number(num));
             weatherDay.applicable_date = new Date(date[0], date[1] - 1, date[2]);
